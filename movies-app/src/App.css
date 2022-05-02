@@ -32,7 +32,37 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.banner-card {
+  width: 100vw;
+  height: 70vh;
+  position: relative;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+}
+
+.banner-title {
+  position: absolute;
+  top: 45vh;
+  color: aliceblue;
+  left: 5vw;
+  font-size: 2rem;
+}
+
+.banner-img {
+  height: 70vh;
+  width: 100%;
+}
+
+.banner-text {
+  position: absolute;
+  top: 55vh;
+  color: aliceblue;
+  margin-left: 5vw;
+  height: 4.5rem;
 }

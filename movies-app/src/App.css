@@ -66,3 +66,28 @@
   margin-left: 5vw;
   height: 4.5rem;
 }
+
+.movies-list {
+  display: flex;
+  padding: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.movie-card {
+  margin: 1rem;
+  width: 20vw;
+  position: relative;
+  color: aliceblue;
+}
+
+.movie-title {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.movie-button {
+  position: absolute;
+  bottom: 2rem;
+}

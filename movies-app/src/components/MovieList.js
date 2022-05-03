@@ -1,29 +1,30 @@
 import React, { Component } from 'react'
-import { movies } from '../movieData'
+//import { movies } from '../movieData'
+import axios from 'axios'
 
 export default class MovieList extends Component {
   constructor() {
     super()
 
     this.state = {
-      hover: ''
+      hover: '',
+      movies: []
     }
+  }
 
+  async componentDidMount(){
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=88b0ef26596932ed25b2cc7b88dcf12c&language=en-US&page=1`)
+    let movieData = res.data
+    console.log(movieData)
 
+    this.setState({
+      movies : [...movieData.results]
+    })
   }
   render() {
-    let moviesArr = movies.results
-    // console.log(moviesArr)
-    return (
-      // <div>
-      //   {
-      //     moviesArr.map((movieElem) => (
-      //       <h1>{movieElem.title}</h1>
-      //     )
+    //let moviesArr = movies.results
 
-      //     )
-      //   }
-      // </div>
+    return (
       <>
         <div>
           <h3 className="text-center">
@@ -33,7 +34,7 @@ export default class MovieList extends Component {
 
         <div className='movies-list'>
           {
-            moviesArr.map((moviesElem) => (
+            this.state.movies.map((moviesElem) => (
               <div className="card movie-card" onMouseEnter={() => this.setState({ hover: moviesElem.id })} onMouseLeave={() => this.setState({ hover: '' })}>
                 <img src={`https://image.tmdb.org/t/p/original${moviesElem.backdrop_path}`}
                   className="card-img-top movie-img" style={{ height: '40vh', width: '20vw' }} alt="..." />

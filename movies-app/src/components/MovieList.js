@@ -8,18 +8,43 @@ export default class MovieList extends Component {
 
     this.state = {
       hover: '',
-      movies: []
+      movies: [],
+      currPage: 1,
+      parr: [1]
     }
   }
 
-  async componentDidMount(){
-    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=88b0ef26596932ed25b2cc7b88dcf12c&language=en-US&page=1`)
+  async componentDidMount() {
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=88b0ef26596932ed25b2cc7b88dcf12c&language=en-US&page=${this.state.currPage}`)
     let movieData = res.data
     console.log(movieData)
 
     this.setState({
-      movies : [...movieData.results]
+      movies: [...movieData.results]
     })
+  }
+
+  changeMovies = async () => {
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=88b0ef26596932ed25b2cc7b88dcf12c&language=en-US&page=${this.state.currPage}`)
+    let movieData = res.data
+    console.log(movieData)
+
+    this.setState({
+      movies: [...movieData.results]
+    })
+  }
+
+  handleNext = () => {
+    let tempArr = []
+
+    for (let i = 1; i <= this.state.parr.length + 1; i++) {
+      tempArr.push(i)
+    }
+
+    this.setState({
+      parr: [...tempArr],
+      currPage: this.state.currPage + 1
+    }, this.changeMovies)
   }
   render() {
     //let moviesArr = movies.results
@@ -59,10 +84,13 @@ export default class MovieList extends Component {
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+              {this.state.parr.map((value) => (
+                <li class="page-item"><a class="page-link" href="#">{value}</a></li>
+              ))}
+
+
+              <li class="page-item"><a class="page-link" href="#" onClick={this.handleNext}>Next</a></li>
             </ul>
           </nav>
         </div>

@@ -2,6 +2,14 @@ import React, { Component } from 'react'
 import { movies } from '../movieData'
 
 export class Favourites extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            genres: [],
+            currentgenre: "All genres"
+        }
+    }
     render() {
         const moviesArr = movies.results
         console.log(moviesArr)
@@ -21,7 +29,13 @@ export class Favourites extends Component {
                         <ul class="list-group genre-selector">
                             {
                                 tempArr.map((genre) => (
-                                    <li class="list-group-item">{genre}</li>
+                                    this.state.currentgenre == genre ?
+                                        <li class="list-group-item active" style={{
+                                            background: "#3f51b5",
+                                            color: "white",
+                                            fontWeight: "bold",
+                                        }}>{genre}</li> :
+                                        <li style={{ color: "#3f51b5" }} class="list-group-item" >{genre}</li>
                                 ))
                             }
                         </ul>
